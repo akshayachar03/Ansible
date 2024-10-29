@@ -1,0 +1,28 @@
+1. Login to Control node as a root user.
+2. Run the command "apt update"
+3. Run the command "apt install ansible" and to check run "ansible --version"
+4. For password less authentication of manage node follow below steps.
+	- Login to manage node as root user.
+	- Run the command vim /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
+	- Run the command systemctl restart ssh
+	- run the command "passwd ubuntu"
+	- Enter the new Password.
+	- Login to control node as root user, run ssh-copy-id ubuntu@public_IP
+	- If error "/usr/bin/ssh-copy-id: ERROR: No identities found" occurs then run "ssh-keygen -t rsa" then run ssh-copy-id ubuntu@public_IP.
+	- Enter the password. That's it.
+5. Clone the git repo: git clone "https://github.com/akshayachar03/Ansible.git"
+6. Navigate to Ansible directory. Create inventory.ini file using "vim inventory.ini"
+7. Now you can run the any ansible adhoc command. 
+	- Ex: ansible -i inventory.ini -m ping all
+	      ansible -i inventory.ini -m shell -a "sudo ls /etc/" all
+	      ansible -i inventory.ini -m shell -a "sudo df -h" all
+	      ansible -i inventory.ini -m shell -a "sudo mkdir /etc/test" all
+	      ansible -i inventory.ini -m shell -a "sudo rm -r /etc/test" all
+8. To run the ansible playbook, use command " ansible-playbook -i inventory.ini first-playbook.yaml"
+9. To check the apache2 installation on managed node, use "sudo ps -ef | grep apache2" or "sudo systemctl status apache2"
+10. To see the web app, copy the public IP address of instance and paste it in browser.
+
+Reference:
+
+-> Ansible modules - https://docs.ansible.com/ansible/latest/collections/index.html
+ 
